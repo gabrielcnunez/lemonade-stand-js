@@ -8,9 +8,7 @@ const lemonade =  {
   water,
   sugar,
   iceCubes,
-  getLemonJuice() {
-    return this.lemonJuice
-  },
+  [console.log('Hello World')]: 'Hi',
   calculatePrice() {
     return (
       this.lemonJuice * 0.3 +
@@ -22,11 +20,20 @@ const lemonade =  {
   }
 }
 
-console.log(lemonade.getLemonJuice())
 
-console.log(lemonade.calculatePrice())
 
-lemonade.water = 6
-lemonade.lemonJuice = 4
+function updateLemonade(lemonade, lemonJuice, water, sugar, iceCubes) {
+  return {
+    ...lemonade,
+    lemonJuice,
+    water,
+    sugar,
+    iceCubes
+  }
+}
 
-console.log(lemonade.calculatePrice())
+lemonade.water = 8
+
+// console.log(updateLemonade(lemonade, 5, 2.5, 3, 7))
+console.log({ ...lemonade, water: 5})
+console.log(lemonade)
