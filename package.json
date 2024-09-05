@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src -d ./build"
+    "build": "babel ./src -d ./build",
+    "prestart": "npm run build",
+    "start": "node ./build/modernModuleA.js"
   },
   "author": "Gabe Nunez",
   "license": "ISC",
