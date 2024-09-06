@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export const calculateLemonadePrice = (lemonade) => {
+const calculateLemonadePrice = (lemonade) => {
   let result = 0
   for (let key in lemonade) {
     switch (key) {
@@ -17,14 +17,14 @@ export const calculateLemonadePrice = (lemonade) => {
         result += lemonade[key] * .05
         break
       default:
-          break
+        break
     }
   }
 
   return result
 }
 
-export const calculateOrderTotal = ({ lemonades }) => {
+const calculateOrderTotal = ({ lemonades }) => {
   let result = 0
   for (let lemonade of lemonades) {
     result += lemonade.price
@@ -44,3 +44,31 @@ export const readAllFiles = dirName => {
   }
   return orders
 }
+
+export const buildQuestionArray = (original, i) => [
+  ...original,
+  { type: 'number', name: 'lemonJuice' + i, message: `How many cups of lemon juice do you want in lemonade ${i}?`},
+  { type: 'number', name: 'water' + i, message: `How many cups of water do you want in lemonade ${i}?`},
+  { type: 'number', name: 'sugar' + i, message: `How many cups of sugar do you want in lemonade ${i}?`},
+  { type: 'number', name: 'iceCubes' + i, message: `How many ice cubes do you want in lemonade ${i}?`}
+]
+
+export const createLemonade = (response, i) => ({
+  lemonJuice: Number.parseInt(response['lemonJuice' + i]),
+  water: Number.parseInt(response['water' + i]),
+  sugar: Number.parseInt(response['sugar' + i]),
+  iceCubes: Number.parseInt(response['iceCubes' + 1])
+})
+
+export const addLemonadeToOrder = (originalOrder, i) => ({
+  ...originalOrder,
+  lemonades: [
+    ...originalOrder.lemonades,
+    {...lemonade, price: calculateLemonadePrice(lemonade)}
+  ]
+})
+
+export const updateOrderTotal = order => ({
+  ...order,
+  total: calculateOrderTotal(order)
+})
