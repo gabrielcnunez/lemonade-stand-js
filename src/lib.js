@@ -36,3 +36,11 @@ export const calculateOrderTotal = ({ lemonades }) => {
 export const writeFileSync = (fileName, order) => {
   fs.writeFileSync(fileName, JSON.stringify(order))
 }
+
+export const readAllFiles = dirName => {
+  const orders = []
+  for (let name of fs.readdirSync(dirName)) {
+    orders.push(JSON.parse(fs.readFileSync(dirName + '/' + name)))
+  }
+  return orders
+}

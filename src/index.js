@@ -1,18 +1,7 @@
 import Vorpal from "vorpal"
-import { calculateLemonadePrice, calculateOrderTotal, writeFileSync } from "./lib"
+import { calculateLemonadePrice, calculateOrderTotal, writeFileSync, readAllFiles } from "./lib"
 
 const vorpal = Vorpal()
-
-vorpal
-  .command('hello <name> [number]', 'Prints Hello <name> to the console')
-  .option('-f --file', 'Provide a file name')
-  .action(function(args, callback) {
-    if (args.options.file) {
-      this.log('I see you want to make a file')
-    }
-    this.log(`Hello ${args.name}, should I call you at ${args.number}`)
-    callback()
-  }) 
 
 vorpal
   .command(
@@ -68,5 +57,21 @@ vorpal
   )
 
   })
+
+  vorpal
+    .command('getOrders <lemonadeStand>', 'Get all orders for the given lemonade stand')
+    .action(function ({ lemonadeStand }, callback) {
+      const orders = readAllFiles(lemonadeStand)
+      this.log(`There are ${orders.length} orders at ${lemonadeStand}`)
+      for (let order of orders) {
+        this.log(`Order 1:`)
+        this.log(`Total Price: ${order.total}`)
+        this.log(`Lemonades:}`)
+        this.log(order.lemonades)
+        this.log(`Customer:`)
+        this.log(order.customer)
+      }
+      callback()
+    })
 
 vorpal.delimiter('lemonade-stand$').show()
