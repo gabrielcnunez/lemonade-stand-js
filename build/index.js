@@ -1,23 +1,41 @@
 "use strict";
 
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var lemonade = _defineProperty(_defineProperty(_defineProperty({
-  lemonJuice: 3,
-  water: 3,
-  sugar: 1.5,
-  iceCubes: 10
-}, console.log('Hello World'), 'Hi'), "calculatePrice", function calculatePrice() {
-  return this.lemonJuice * 0.3 + this.water * 0.01 + this.sugar * 0.25 + this.iceCubes * 0.05 + 0.75;
-}), "calculatePriceLambda", function calculatePriceLambda() {
-  return lemonJuice * 0.3 + water * 0.01 + sugar * 0.25 + iceCubes * 0.05 + 0.75;
-});
-console.log(lemonade.calculatePrice());
-console.log(lemonade.calculatePriceLambda());
+// const lemonade =  {
+//   lemonJuice: 3,
+//   water: 3,
+//   sugar: 1.5,
+//   iceCubes: 10,
+//   [console.log('Hello World')]: 'Hi',
+//   calculatePrice() {
+//     return (
+//       this.lemonJuice * 0.3 +
+//       this.water * 0.01 + 
+//       this.sugar * 0.25 + 
+//       this.iceCubes * 0.05 + 
+//       0.75
+//     )
+//   },
+//   calculatePriceLambda: () => {
+//     return (
+//       lemonJuice * 0.3 +
+//       water * 0.01 + 
+//       sugar * 0.25 + 
+//       iceCubes * 0.05 + 
+//       0.75
+//     )
+//   }
+// }
 
-// function updateLemonade({calculatePrice}, lemonJuice, water, sugar, iceCubes) {
+// console.log(lemonade.calculatePrice())
+// console.log(lemonade.calculatePriceLambda())
+
+// function updateLemonade (
+//   {calculatePrice}, 
+//   lemonJuice, 
+//   water, 
+//   sugar, 
+//   iceCubes) 
+//   {
 //   return {
 //     lemonJuice,
 //     water,
@@ -26,6 +44,29 @@ console.log(lemonade.calculatePriceLambda());
 //     calculatePrice
 //   }
 // }
+
+var a = 10;
+var updateLemonade = function updateLemonade(_ref, lemonJuice, water, sugar, iceCubes) {
+  var calculatePrice = _ref.calculatePrice;
+  return {
+    lemonJuice: lemonJuice,
+    water: water,
+    sugar: sugar,
+    iceCubes: iceCubes,
+    calculatePrice: calculatePrice,
+    a: a
+  };
+};
+var outer = function outer() {
+  var x = 2;
+  var inner = function inner() {
+    var y = 5;
+    return x + y;
+  };
+  return inner;
+};
+var containedInner = outer();
+console.log(containedInner());
 
 // lemonade.water = 8
 
@@ -49,3 +90,15 @@ console.log(lemonade.calculatePriceLambda());
 // console.log(lemonJuice)
 // console.log(sugar)
 // console.log(iceCubes)
+
+// function add (x, y) {
+//   return x + y
+// }
+
+// function increment () {
+//   return x + 1
+// }
+
+// const increment = x => x + 1
+
+// console.log((x => x + 1)(5))

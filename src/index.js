@@ -1,33 +1,39 @@
-const lemonade =  {
-  lemonJuice: 3,
-  water: 3,
-  sugar: 1.5,
-  iceCubes: 10,
-  [console.log('Hello World')]: 'Hi',
-  calculatePrice() {
-    return (
-      this.lemonJuice * 0.3 +
-      this.water * 0.01 + 
-      this.sugar * 0.25 + 
-      this.iceCubes * 0.05 + 
-      0.75
-    )
-  },
-  calculatePriceLambda: () => {
-    return (
-      lemonJuice * 0.3 +
-      water * 0.01 + 
-      sugar * 0.25 + 
-      iceCubes * 0.05 + 
-      0.75
-    )
-  }
-}
+// const lemonade =  {
+//   lemonJuice: 3,
+//   water: 3,
+//   sugar: 1.5,
+//   iceCubes: 10,
+//   [console.log('Hello World')]: 'Hi',
+//   calculatePrice() {
+//     return (
+//       this.lemonJuice * 0.3 +
+//       this.water * 0.01 + 
+//       this.sugar * 0.25 + 
+//       this.iceCubes * 0.05 + 
+//       0.75
+//     )
+//   },
+//   calculatePriceLambda: () => {
+//     return (
+//       lemonJuice * 0.3 +
+//       water * 0.01 + 
+//       sugar * 0.25 + 
+//       iceCubes * 0.05 + 
+//       0.75
+//     )
+//   }
+// }
 
-console.log(lemonade.calculatePrice())
-console.log(lemonade.calculatePriceLambda())
+// console.log(lemonade.calculatePrice())
+// console.log(lemonade.calculatePriceLambda())
 
-// function updateLemonade({calculatePrice}, lemonJuice, water, sugar, iceCubes) {
+// function updateLemonade (
+//   {calculatePrice}, 
+//   lemonJuice, 
+//   water, 
+//   sugar, 
+//   iceCubes) 
+//   {
 //   return {
 //     lemonJuice,
 //     water,
@@ -36,6 +42,38 @@ console.log(lemonade.calculatePriceLambda())
 //     calculatePrice
 //   }
 // }
+
+let a = 10
+
+const updateLemonade = (
+  { calculatePrice },
+  lemonJuice,
+  water,
+  sugar,
+  iceCubes
+) => ({
+  lemonJuice,
+  water,
+  sugar,
+  iceCubes,
+  calculatePrice,
+  a
+})
+
+const outer = () => {
+  let x = 2
+
+  const inner = () => {
+    let y = 5
+    return x + y
+  }
+
+  return inner
+}
+
+const containedInner = outer()
+
+console.log(containedInner())
 
 // lemonade.water = 8
 
@@ -59,3 +97,16 @@ console.log(lemonade.calculatePriceLambda())
 // console.log(lemonJuice)
 // console.log(sugar)
 // console.log(iceCubes)
+
+
+// function add (x, y) {
+//   return x + y
+// }
+
+// function increment () {
+//   return x + 1
+// }
+
+// const increment = x => x + 1
+
+// console.log((x => x + 1)(5))
