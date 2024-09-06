@@ -1,4 +1,6 @@
-export const calculateLemonadePrice = lemonade => {
+import fs from 'fs'
+
+export const calculateLemonadePrice = (lemonade) => {
   let result = 0
   for (let key in lemonade) {
     switch (key) {
@@ -31,3 +33,6 @@ export const calculateOrderTotal = ({ lemonades }) => {
   return result
 }
 
+export const writeFileSync = (fileName, order) => {
+  fs.writeFileSync(fileName, JSON.stringify(order))
+}

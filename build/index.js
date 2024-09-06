@@ -44,11 +44,25 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default":
 // }
 
 var vorpal = (0, _vorpal["default"])();
-vorpal.command('hello <name> [number]', 'Prints Hello to the console').option('-f --file', 'Provide a file name').action(function (args, callback) {
+vorpal.command('hello <name> [number]', 'Prints Hello <name> to the console').option('-f --file', 'Provide a file name').action(function (args, callback) {
   if (args.options.file) {
     this.log('I see you want to make a file');
   }
   this.log("Hello ".concat(args.name, ", should I call you at ").concat(args.number));
   callback();
 });
-vorpal.show();
+vorpal.command('createOrder <name> <phoneNumber>', 'Create an order and saves it as a JSON file').action(function (args, callback) {
+  var _this = this;
+  var customer = {
+    name: args.name,
+    phoneNumber: args.phoneNumber
+  };
+  this.prompt({
+    type: 'number',
+    name: 'numLemonades',
+    message: 'How many lemonades would you like to order?'
+  }, function (result) {
+    return _this.log(result);
+  });
+});
+vorpal.delimiter('lemonade-stand$').show();
