@@ -16,7 +16,7 @@ vorpal
     'Create an order and saves it as a JSON file'
   )
   .action(function (args, callback) {
-    const order = {
+    let order = {
       total: 0,
       lemonades: [],
       customer: {
@@ -36,15 +36,13 @@ vorpal
       message: 'How many lemonades would you like to order?'
     }, 
     ({ numLemonades }) => {
-      let questions = []
+      // let questions = []
+      const questions = [...Array(Number.parseInt(numLemonades))].flatMap(buildQuestionArray)
 
-      for (let i = 1; i <= numLemonades; i++) {
-        questions = buildQuestionArray(questions, i)
-      }
       this.prompt(questions, response => {
         for (let i = 1; i <= numLemonades; i++) {
           order = updateOrderTotal(
-            addLemonadeToOrder(createLemonade(response, i))
+            addLemonadeToOrder(order, createLemonade(response, i))
           )
         }
 
