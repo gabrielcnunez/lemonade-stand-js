@@ -46,18 +46,20 @@ export const readAllFiles = dirName => {
 }
 
 export const buildQuestionArray = (val, i) => [
-  { type: 'number', name: `lemonJuice${i + 1}`, message: `How many cups of lemon juice do you want in lemonade ${i + 1}?`},
-  { type: 'number', name: `water${i + 1}`, message: `How many cups of water do you want in lemonade ${i + 1}?`},
-  { type: 'number', name: `sugar${i + 1}`, message: `How many cups of sugar do you want in lemonade ${i + 1}?`},
-  { type: 'number', name: `iceCubes${i + 1}`, message: `How many ice cubes do you want in lemonade ${i + 1}?`}
+  { type: 'number', name: `lemonJuice${i}`, message: `How many cups of lemon juice do you want in lemonade ${i + 1}?`},
+  { type: 'number', name: `water${i}`, message: `How many cups of water do you want in lemonade ${i + 1}?`},
+  { type: 'number', name: `sugar${i}`, message: `How many cups of sugar do you want in lemonade ${i + 1}?`},
+  { type: 'number', name: `iceCubes${i}`, message: `How many ice cubes do you want in lemonade ${i + 1}?`}
 ]
 
-export const createLemonade = (response, i) => ({
-  lemonJuice: Number.parseInt(response['lemonJuice' + i]),
-  water: Number.parseInt(response['water' + i]),
-  sugar: Number.parseInt(response['sugar' + i]),
-  iceCubes: Number.parseInt(response['iceCubes' + 1])
-})
+export const createLemonade = response => {
+  return (curr, i) => ({
+    lemonJuice: Number.parseInt(response['lemonJuice' + (i)]),
+    water: Number.parseInt(response['water' + i]),
+    sugar: Number.parseInt(response['sugar' + i]),
+    iceCubes: Number.parseInt(response['iceCubes' + i])
+  })
+}
 
 export const addLemonadeToOrder = (originalOrder, lemonade) => ({
   ...originalOrder,
