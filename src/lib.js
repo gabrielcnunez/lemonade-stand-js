@@ -1,5 +1,10 @@
 import fs from 'fs'
 
+const curry = (f, arr = []) => (...args) =>
+  (a => (a.length === f.length ? f(...a) : curry(f, a)))([...arr, ...args])
+
+export const map = f => reducer => (acc, curr, ind, arr) => reducer(acc, f(curr, ind), ind, arr)
+
 const calculateLemonadePrice = (lemonade) => {
   let result = 0
   for (let key in lemonade) {
@@ -52,20 +57,18 @@ export const buildQuestionArray = (val, i) => [
   { type: 'number', name: `iceCubes${i}`, message: `How many ice cubes do you want in lemonade ${i + 1}?`}
 ]
 
-export const createLemonade = response => {
-  return (curr, i) => ({
+export const createLemonade = curry((response, curr, i) => ({
     lemonJuice: Number.parseInt(response['lemonJuice' + (i)]),
     water: Number.parseInt(response['water' + i]),
     sugar: Number.parseInt(response['sugar' + i]),
     iceCubes: Number.parseInt(response['iceCubes' + i])
-  })
-}
+}))
 
-export const addLemonadeToOrder = (originalOrder, lemonade) => ({
-  ...originalOrder,
+export const addLemonadeToOrder = (acc, curr) => ({
+  ...acc,
   lemonades: [
-    ...originalOrder.lemonades,
-    {...lemonade, price: calculateLemonadePrice(lemonade)}
+    ...acc.lemonades,
+    {...curr, price: calculateLemonadePrice(curr)}
   ]
 })
 

@@ -5,7 +5,8 @@ import {
   buildQuestionArray,
   createLemonade,
   addLemonadeToOrder,
-  updateOrderTotal 
+  updateOrderTotal,
+  map
 } from "./lib"
 
 const vorpal = Vorpal()
@@ -28,19 +29,20 @@ vorpal
       
       this.prompt(questions, response => {
         const order = updateOrderTotal(
-          [...Array(Number.parseInt(numLemonades))]
-          .map(createLemonade(response))
-          .reduce(addLemonadeToOrder, {
-            total: 0,
-            lemonades: [],
-            customer: {
-              name: args.name,
-              phoneNumber: args.phoneNumber
-            },
-            lemonadeStand: {
-              name: 'Cooksys Lemonade Stand'
-            },
-          })
+          [...Array(Number.parseInt(numLemonades))].reduce(
+            map(createLemonade(response))(addLemonadeToOrder),
+            {
+              total: 0,
+              lemonades: [],
+              customer: {
+                name: args.name,
+                phoneNumber: args.phoneNumber
+              },
+              lemonadeStand: {
+                name: 'Cooksys Lemonade Stand'
+              }
+            }
+          )
         )
 
         writeFileSync(
